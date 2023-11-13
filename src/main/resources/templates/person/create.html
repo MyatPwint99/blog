@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Page</title>
+</head>
+<body>
+<h1>User Registration</h1>
+<form th:action="@{/person/create}"  method="post" th:object="${person}">
+    <label>User name:</label>
+    <input type="text" th:field="*{name}" /><br/>
+    <button type="submit">Register</button>
+</form>
+</body>
+</html>
