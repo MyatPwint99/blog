@@ -24,7 +24,9 @@ public class Person {
     Date updatedAt;
 
     public Person(PersonDTO personDTO){
+        setId(personDTO.getId());
         setName(personDTO.getName());
+
 
     }
 

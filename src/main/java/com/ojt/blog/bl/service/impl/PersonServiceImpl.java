@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -20,6 +23,8 @@ public class PersonServiceImpl implements PersonService {
 
     @Autowired
     PersonRepository personRepository;
+
+
 
     /***
      *<h2>Register Person</h2>
@@ -58,5 +63,41 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Page<Person> getPageablePersonList(Pageable pageable) {
         return personRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Person> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())? Sort.by(sortField).ascending() :
+                Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNo-1,pageSize,sort);
+        return this.personRepository.findAll(pageable);
+    }
+
+//    @Override
+//    public Page<Person> findPaginated(int pageNo, int pageSize) {
+//        Pageable pageable = PageRequest.of(pageNo-1,pageSize);
+//        return this.personRepository.findAll(pageable);
+//    }
+
+    @Override
+    public void updatePerson(Person person) {
+        personRepository.save(person);
+    }
+
+    @Override
+    public void deleteById(long id) {
+        personRepository.deleteById(id);
+    }
+
+    @Override
+    public Person getPersonById(long id) {
+        Optional<Person> optional = personRepository.findById(id);
+        Person person = null;
+        if(optional.isPresent()){
+            person = optional.get();
+        }else {
+            throw new RuntimeException("Person not Found for id :: "+id);
+        }
+        return person;
     }
 }

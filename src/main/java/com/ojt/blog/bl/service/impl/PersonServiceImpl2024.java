@@ -18,6 +18,12 @@ import java.util.List;
 public class PersonServiceImpl2024 implements PersonService {
     @Autowired
     PersonRepository personRepository;
+
+    @Override
+    public Person getPersonById(long id) {
+        return null;
+    }
+
     @Override
     public void registerPerson(PersonDTO personDTO) {
         //Person (entity) ----> Repository
@@ -35,6 +41,26 @@ public class PersonServiceImpl2024 implements PersonService {
     @Override
     public Page<Person> getPageablePersonList(Pageable pageable) {
         return null;
+    }
+
+    @Override
+    public Page<Person> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+        return null;
+    }
+
+//    @Override
+//    public Page<Person> findPaginated(int pageNo, int pageSize) {
+//        return null;
+//    }
+
+    @Override
+    public void updatePerson(Person person) {
+
+    }
+
+    @Override
+    public void deleteById(long id) {
+
     }
 
 //

@@ -10,6 +10,8 @@ import java.util.List;
 
 @Service
 public interface PersonService {
+    public Person getPersonById(long id) ;
+
     /***
      *<h2>Register Person</h2>
      * <p>Person Name is modified to UpperCase And Register Person to DB</p>
@@ -34,4 +36,11 @@ public interface PersonService {
      * return void
      */
     Page<Person> getPageablePersonList(Pageable pageable);
+
+//    Page<Person> findPaginated(int pageNo,int pageSize);
+    Page<Person> findPaginated(int pageNo,int pageSize,String sortField,String sortDirection);
+
+    void updatePerson(Person person);
+
+    void deleteById(long id);
 }

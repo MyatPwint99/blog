@@ -1,0 +1,16 @@
+
+form{
+  margin: auto;
+  width: 50%;
+  border: 3px solid lightblue;
+  padding: 10px;
+}
+
+.lft-btn{
+ float:left;
+ width: 50%;
+}
+.rgt-btn{
+ float:right;
+ width: 40%;
+}

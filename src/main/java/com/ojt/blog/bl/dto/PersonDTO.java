@@ -9,11 +9,14 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PersonDTO {
+    Long id;
     String name;
     public PersonDTO(PersonForm personForm){
+        setId(personForm.getId());
         setName(personForm.getName());
     }
     public PersonDTO(Person person){
+        setId(person.getId());
         setName(person.getName());
 
     }
