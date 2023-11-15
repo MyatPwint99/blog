@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 
@@ -19,8 +21,9 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String name;
-
+    @CreationTimestamp
     Date createdAt;
+    @UpdateTimestamp
     Date updatedAt;
 
     public Person(PersonDTO personDTO){

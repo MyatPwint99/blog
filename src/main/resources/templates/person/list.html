@@ -41,8 +41,8 @@
             <td></td>
             <td><span th:text="${person.id}"> ID </span></td>
             <td><span th:text="${person.name}"> Name </span></td>
-            <td></td>
-            <td></td>
+            <td><span th:text="${person.createdAt}"> Name </span></td>
+            <td><span th:text="${person.updatedAt}"> Name </span></td>
             <td>
                 <a class="btn btn-primary" th:href="@{/person/showFormForUpdate/{id}(id=${person.id})}">Update</a>
                 <a class="btn btn-danger" th:href="@{/person/deletePerson/{id}(id=${person.id})}">Delete</a>
