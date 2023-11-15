@@ -13,10 +13,11 @@
         <a class="btn btn-secondary" th:href="@{/person/create}">Add User</a>
     </div>
     <div class="rgt-btn">
-        <input class="visually-hidden" type="text" placeholder="User's ID"/>
-        <input class="visually-hidden" type="text" placeholder="User's Name"/>
-        <a class="btn btn-primary mb-3" th:href="@{/person/create}">Search</a>
-        <button type="reset" class="btn btn-danger mb-3">Reset</button>
+        <form  th:action="@{/person/search}"  >
+            <input class="visually-hidden" type="text" name="keyword" placeholder="User's Name" />
+            <button class="btn btn-primary" type="submit">Search</button>
+            <button class="btn btn-danger" type="reset">Reset</button>
+        </form>
     </div>
     <table class="table table-striped">
         <thead>
@@ -39,10 +40,10 @@
         </tr>
         <tr th:each="person : ${persons}">
             <td></td>
-            <td><span th:text="${person.id}"> ID </span></td>
-            <td><span th:text="${person.name}"> Name </span></td>
-            <td><span th:text="${person.createdAt}"> Name </span></td>
-            <td><span th:text="${person.updatedAt}"> Name </span></td>
+            <td><span th:text="${person.id}"></span></td>
+            <td><span th:text="${person.name}"></span></td>
+            <td><span th:text="${person.createdAt}"></span></td>
+            <td><span th:text="${person.updatedAt}"></span></td>
             <td>
                 <a class="btn btn-primary" th:href="@{/person/showFormForUpdate/{id}(id=${person.id})}">Update</a>
                 <a class="btn btn-danger" th:href="@{/person/deletePerson/{id}(id=${person.id})}">Delete</a>
@@ -75,13 +76,15 @@
                     <span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
                 </span>
             </div>
+            <div>
             <div class="col-sm-1">
                 <a class="btn btn-light" th:if="${currentPage < totalPages}" th:href="@{'/person/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
                 <span th:unless="${currentPage < totalPages}">Next</span>
-            </div>
+            </div>&nbsp;
             <div class="col-sm-1">
                 <a class="btn btn-light" th:if="${currentPage < totalPages}" th:href="@{'/person/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
                 <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
             </div>
         </div>
 

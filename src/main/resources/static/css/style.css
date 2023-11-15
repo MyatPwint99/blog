@@ -1,5 +1,9 @@
-
-form{
+.clearfix {
+  display: block;
+  clear: both;
+  content: "";
+}
+.createform{
   margin: auto;
   width: 50%;
   border: 3px solid lightblue;
@@ -12,5 +16,5 @@ form{
 }
 .rgt-btn{
  float:right;
- width: 40%;
+ width: 30%;
 }

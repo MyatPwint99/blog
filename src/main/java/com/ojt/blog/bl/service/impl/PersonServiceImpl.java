@@ -90,6 +90,14 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public List<Person> listAll(String keyword) {
+        if(keyword != null){
+            return personRepository.findAll(keyword);
+        }
+        return personRepository.findAll();
+    }
+
+    @Override
     public Person getPersonById(long id) {
         Optional<Person> optional = personRepository.findById(id);
         Person person = null;

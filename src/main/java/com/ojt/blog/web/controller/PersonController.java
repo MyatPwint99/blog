@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.plaf.PanelUI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +27,41 @@ public class PersonController {
 //    @Qualifier("myPersonService")
     PersonService personService;
 
+    @GetMapping("/search")
+    public String searchPage(Model model,
+                             @Param("keyword") String keyword){
+//        String keyword = "HLA HLA";
+        List<Person> listPersons = personService.listAll(keyword);
+        model.addAttribute("persons",listPersons);
+        System.out.println("**************************************OK***************************************");
+
+
+        return "person/search";
+    }
+    //    @GetMapping("/page/{pageNo}")
+//    public String findPaginated(@PathVariable int pageNo,Model model){
+//        int pageSize = 8;
+//
+//        Page<Person> page = personService.findPaginated(pageNo,pageSize);
+//        List<Person> persons = page.getContent();
+//
+//        model.addAttribute("currentPage",pageNo);
+//        model.addAttribute("totalPages",page.getTotalPages());
+//        model.addAttribute("totalItems",page.getTotalElements());
+//        model.addAttribute("persons",persons);
+//
+//        return "person/list";
+//    }
+
     @GetMapping("/list")
     public String viewHomePage(Model model){
 
         return findPaginated(1,"name","asc",model);
     }
+
+
+
+
 
 
     /***
@@ -87,26 +119,13 @@ public class PersonController {
 //        return "person/list";
 //    }
 
-//    @GetMapping("/page/{pageNo}")
-//    public String findPaginated(@PathVariable int pageNo,Model model){
-//        int pageSize = 8;
-//
-//        Page<Person> page = personService.findPaginated(pageNo,pageSize);
-//        List<Person> persons = page.getContent();
-//
-//        model.addAttribute("currentPage",pageNo);
-//        model.addAttribute("totalPages",page.getTotalPages());
-//        model.addAttribute("totalItems",page.getTotalElements());
-//        model.addAttribute("persons",persons);
-//
-//        return "person/list";
-//    }
+
     @GetMapping("/page/{pageNo}")
     public String findPaginated(@PathVariable int pageNo,
                                 @RequestParam String sortField,
                                 @RequestParam String sortDir,
                                 Model model){
-        int pageSize = 8;
+        int pageSize = 6;
 
         Page<Person> page = personService.findPaginated(pageNo,pageSize,sortField,sortDir);
         List<Person> persons = page.getContent();

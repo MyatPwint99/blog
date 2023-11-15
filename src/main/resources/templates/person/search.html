@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Person</title>
+    <link th:href="@{/reset/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<h1>Search Peron Page</h1>
+<div class="lft-btn">
+    <a class="btn btn-secondary" th:href="@{/person/create}">Add User</a>
+    <a class="btn btn-secondary" th:href="@{/person/list}">Person List</a>
+</div>
+<div class="rgt-btn">
+    <form  th:action="@{/person/search}"  >
+        <input class="visually-hidden" type="text" name="keyword" placeholder="User's Name" />
+        <button class="btn btn-primary" type="submit">Search</button>
+        <button class="btn btn-danger" type="reset">Reset</button>
+    </form>
+</div>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th></th>
+        <th>
+            <a th:href="@{'/person/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">ID</a>
+        </th>
+        <th>
+            <a th:href="@{'/person/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">Name </a>
+        </th>
+        <th> Created At </th>
+        <th> Updated At </th>
+        <th> Action </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${persons.empty}">
+        <td colspan="2"> No Person Available </td>
+    </tr>
+    <tr th:each="person : ${persons}">
+        <td></td>
+        <td><span th:text="${person.id}"></span></td>
+        <td><span th:text="${person.name}"></span></td>
+        <td><span th:text="${person.createdAt}"></span></td>
+        <td><span th:text="${person.updatedAt}"></span></td>
+        <td>
+            <a class="btn btn-primary" th:href="@{/person/showFormForUpdate/{id}(id=${person.id})}">Update</a>
+            <a class="btn btn-danger" th:href="@{/person/deletePerson/{id}(id=${person.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:if = "${totalPages > 1}">
+    <div class="row col-sm-10">
+        <div class="col-sm-2">
+            Total Rows: [[${totalItems}]]
+        </div>
+        <div class="col-sm-1">
+            <a class="btn btn-light" th:if="${currentPage != 1}" th:href="@{'/person/page/' + 1 + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">First</a>
+            <span th:unless="${currentPage != 1}">First</span>
+        </div>
+        <div class="col-sm-1">
+            <a class="btn btn-light" th:if="${currentPage != 1}" th:href="@{'/person/page/' + ${currentPage - 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
+            <span th:unless="${currentPage != 1}">Previous</span>
+        </div>
+        <div class="col-sm-1">
+                <span th:each="i: ${#numbers.sequence(1,totalPages)}">
+                    <a class="btn btn-light" th:if="${currentPage != i}" th:href="@{'/person/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+                    <span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+                </span>
+        </div>
+        <div class="col-sm-1">
+            <a class="btn btn-light" th:if="${currentPage < totalPages}" th:href="@{'/person/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+            <span th:unless="${currentPage < totalPages}">Next</span>
+        </div>
+        <div class="col-sm-1">
+            <a class="btn btn-light" th:if="${currentPage < totalPages}" th:href="@{'/person/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+            <span th:unless="${currentPage < totalPages}">Last</span>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

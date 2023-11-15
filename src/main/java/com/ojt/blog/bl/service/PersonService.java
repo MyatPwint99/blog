@@ -43,4 +43,7 @@ public interface PersonService {
     void updatePerson(Person person);
 
     void deleteById(long id);
+
+
+     public List<Person> listAll(String keyword);
 }
