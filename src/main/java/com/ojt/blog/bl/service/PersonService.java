@@ -40,7 +40,7 @@ public interface PersonService {
 //    Page<Person> findPaginated(int pageNo,int pageSize);
     Page<Person> findPaginated(int pageNo,int pageSize,String sortField,String sortDirection);
 
-    void updatePerson(Person person);
+    void updatePerson( Long id,String name);
 
     void deleteById(long id);
 

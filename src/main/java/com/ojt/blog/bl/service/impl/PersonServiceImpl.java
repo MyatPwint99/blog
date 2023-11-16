@@ -80,8 +80,8 @@ public class PersonServiceImpl implements PersonService {
 //    }
 
     @Override
-    public void updatePerson(Person person) {
-        personRepository.save(person);
+    public void updatePerson( Long id,String name) {
+        personRepository.updatePersonByQuery(id,name);
     }
 
     @Override

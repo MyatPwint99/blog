@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.swing.plaf.PanelUI;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -151,8 +152,15 @@ public class PersonController {
     }
 
     @PostMapping("/update")
-    public String updatePerson(@ModelAttribute Person person,Model model){
-        personService.updatePerson(person);
+    public String updatePerson(@Param("id") Long id,@Param("name") String name){
+//        System.out.println("***************"+person.getId()+"***************");
+//        System.out.println("***************"+person.getName()+"***************");
+//        System.out.println("***************"+person.getCreatedAt()+"***************");
+//        System.out.println("***************"+person.getUpdatedAt()+"***************");
+//        System.out.println("***************"+createdAt+"***************");
+        System.out.println("***************"+name+"***************");
+        System.out.println("***************"+id+"***************");
+        personService.updatePerson(id,name);
         return "redirect:/person/list";
     }
     @GetMapping("/deletePerson/{id}")

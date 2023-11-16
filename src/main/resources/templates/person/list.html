@@ -14,7 +14,7 @@
     </div>
     <div class="rgt-btn">
         <form  th:action="@{/person/search}"  >
-            <input class="visually-hidden" type="text" name="keyword" placeholder="User's Name" />
+            <input class="visually-hidden" type="text" name="keyword" placeholder="User's Name Or ID" />
             <button class="btn btn-primary" type="submit">Search</button>
             <button class="btn btn-danger" type="reset">Reset</button>
         </form>
@@ -76,16 +76,16 @@
                     <span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
                 </span>
             </div>
-            <div>
+
             <div class="col-sm-1">
                 <a class="btn btn-light" th:if="${currentPage < totalPages}" th:href="@{'/person/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
                 <span th:unless="${currentPage < totalPages}">Next</span>
-            </div>&nbsp;
+            </div>
             <div class="col-sm-1">
                 <a class="btn btn-light" th:if="${currentPage < totalPages}" th:href="@{'/person/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
                 <span th:unless="${currentPage < totalPages}">Last</span>
             </div>
-            </div>
+
         </div>
 
     </div>
