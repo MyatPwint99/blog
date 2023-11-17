@@ -5,6 +5,10 @@ import com.ojt.blog.bl.service.PersonService;
 import com.ojt.blog.persistence.entity.Person;
 import com.ojt.blog.web.form.PersonForm;
 import jakarta.validation.Valid;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -15,10 +19,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.plaf.PanelUI;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -167,5 +177,36 @@ public class PersonController {
     public String deletePerson(@PathVariable long id,Model model){
         personService.deleteById(id);
         return "redirect:/person/list";
+    }
+    @GetMapping("/excel-import")
+    public String personListExcelExport() throws IOException, InvalidFormatException {
+        File file = new File("D:\\BIB\\JAVA\\JAVA LESSONS\\blog2\\src\\main\\resources\\static\\files\\sample-data.xlsx");
+        FileInputStream fis = new FileInputStream(file);
+        System.out.println("excel import *************");
+//        var workbook = new XSSFWorkbook(file.getInputStream());
+//        var sh = workbook.createSheet();
+//        var r = sh.createRow(0);
+//        var c = r.createCell(0);
+//        c.setCellValue(135);
+
+
+        // Excel Import To JAVA
+        var workbook = new XSSFWorkbook(file);
+        var sheet = workbook.getSheetAt(0);
+        Iterator<Row> itr = sheet.iterator();
+        while (itr.hasNext()){
+            Row row = itr.next();
+//            var cellStyle = workbook.createCellStyle();
+//            cellStyle.setAlignment();
+
+            Cell cell = row.getCell(0);
+            String name = cell.getStringCellValue();
+
+            PersonForm personForm = new PersonForm();
+            personForm.setName(name);
+            personService.registerPerson(new PersonDTO(personForm));
+        }
+
+        return "home/index";
     }
 }
