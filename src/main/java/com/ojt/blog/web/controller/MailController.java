@@ -20,6 +20,13 @@ public class MailController {
     @Autowired
     JavaMailSender javaMailSender;
 
+    /***
+     *<h2>Send Mail</h2>
+     * <p>Pass Person Data To Service</p>
+     *
+     * @param personForm
+     * @return String
+     */
     @GetMapping("/send")
     public void sendMail(@ModelAttribute PersonForm personForm) throws MessagingException {
 //        ****************************

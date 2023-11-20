@@ -25,13 +25,13 @@ public class PersonForm {
     @NotEmpty(message = "********* User's Name must not be Empty *********")
     String name;
     Date createdAt;
-
+    String password;
 
     public PersonForm(PersonDTO personDTO){
         setId(personDTO.getId());
         setName(personDTO.getName());
         setCreatedAt(personDTO.getCreatedAt());
-
+        setPassword(personDTO.getPassword());
 
     }
 

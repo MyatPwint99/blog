@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.SimpleTimeZone;
 
 @Entity
 @Getter
@@ -28,10 +29,13 @@ public class Person {
     @UpdateTimestamp
     Date updatedAt;
 
+    String password;
+
     public Person(PersonDTO personDTO){
         setId(personDTO.getId());
         setName(personDTO.getName());
         setCreatedAt(personDTO.getCreatedAt());
+        setPassword(personDTO.getPassword());
     }
 
 

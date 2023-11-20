@@ -20,4 +20,7 @@ public interface PersonRepository extends JpaRepository<Person,Long> {
 
     @Query(value = "SELECT p FROM Person p WHERE p.name LIKE %?1%")
     public List<Person> findAll(String keyword);
+
+//    @Query(value = "SELECT p FROM Person p WHERE name=:name")
+    public Person findByName(String name);
 }

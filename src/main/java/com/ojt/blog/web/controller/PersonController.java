@@ -1,7 +1,7 @@
 package com.ojt.blog.web.controller;
 
 import com.ojt.blog.bl.dto.PersonDTO;
-import com.ojt.blog.bl.service.PersonService;
+import com.ojt.blog.bl.service.person.PersonService;
 import com.ojt.blog.persistence.entity.Person;
 import com.ojt.blog.web.form.PersonForm;
 import jakarta.validation.Valid;
@@ -10,24 +10,16 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.plaf.PanelUI;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -38,6 +30,14 @@ public class PersonController {
 //    @Qualifier("myPersonService")
     PersonService personService;
 
+    /***
+     *<h2>Search Page</h2>
+     * <p>Pass Person Data To Service</p>
+     *
+     * @param model
+     * @param keyword
+     * @return String
+     */
     @GetMapping("/search")
     public String searchPage(Model model,
                              @Param("keyword") String keyword){
@@ -63,17 +63,18 @@ public class PersonController {
 //
 //        return "person/list";
 //    }
-
+    /***
+     *<h2>View Home Page</h2>
+     * <p>Pass Person Data To Service</p>
+     *
+     * @param model
+     * @return String
+     */
     @GetMapping("/list")
     public String viewHomePage(Model model){
 
         return findPaginated(1,"name","asc",model);
     }
-
-
-
-
-
 
     /***
      * <h2>Register Page</h2>
@@ -129,7 +130,16 @@ public class PersonController {
 //        model.addAttribute("persons",persons);
 //        return "person/list";
 //    }
-
+    /***
+     *<h2>Find Paginated</h2>
+     * <p>Pass Person Data To Service</p>
+     *
+     * @param pageNo
+     * @param sortField
+     * @param sortDir
+     * @param model
+     * @return String
+     */
 
     @GetMapping("/page/{pageNo}")
     public String findPaginated(@PathVariable int pageNo,
@@ -153,14 +163,28 @@ public class PersonController {
 
         return "person/list";
     }
-
+    /***
+     *<h2>Show Form For Update</h2>
+     * <p>Pass Person Data To Service</p>
+     *
+     * @param id
+     * @param model
+     * @return String
+     */
     @GetMapping("/showFormForUpdate/{id}")
     public String showFormForUpdate(@PathVariable long id,Model model){
         Person person = personService.getPersonById(id);
         model.addAttribute("person",person);
         return "person/update";
     }
-
+    /***
+     *<h2>Update Person</h2>
+     * <p>Pass Person Data To Service</p>
+     *
+     * @param id
+     * @param name
+     * @return String
+     */
     @PostMapping("/update")
     public String updatePerson(@Param("id") Long id,@Param("name") String name){
 //        System.out.println("***************"+person.getId()+"***************");
@@ -173,11 +197,26 @@ public class PersonController {
         personService.updatePerson(id,name);
         return "redirect:/person/list";
     }
+    /***
+     *<h2>Delete Person</h2>
+     * <p>Pass Person Data To Service</p>
+     *
+     * @param id
+     * @param model
+     * @return String
+     */
     @GetMapping("/deletePerson/{id}")
     public String deletePerson(@PathVariable long id,Model model){
         personService.deleteById(id);
         return "redirect:/person/list";
     }
+
+    /***
+     *<h2>Person List Excel Export</h2>
+     * <p>Pass Person Data To Service</p>
+     *
+     * @return String
+     */
     @GetMapping("/excel-import")
     public String personListExcelExport() throws IOException, InvalidFormatException {
         File file = new File("D:\\BIB\\JAVA\\JAVA LESSONS\\blog2\\src\\main\\resources\\static\\files\\sample-data.xlsx");
@@ -188,7 +227,6 @@ public class PersonController {
 //        var r = sh.createRow(0);
 //        var c = r.createCell(0);
 //        c.setCellValue(135);
-
 
         // Excel Import To JAVA
         var workbook = new XSSFWorkbook(file);
@@ -207,6 +245,6 @@ public class PersonController {
             personService.registerPerson(new PersonDTO(personForm));
         }
 
-        return "home/index";
+        return "redirect:/person/list";
     }
 }

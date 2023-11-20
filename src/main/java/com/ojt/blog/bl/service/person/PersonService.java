@@ -1,4 +1,4 @@
-package com.ojt.blog.bl.service;
+package com.ojt.blog.bl.service.person;
 
 import com.ojt.blog.bl.dto.PersonDTO;
 import com.ojt.blog.persistence.entity.Person;
@@ -46,4 +46,6 @@ public interface PersonService {
 
 
      public List<Person> listAll(String keyword);
+
+    Person getByPersonName(String username);
 }

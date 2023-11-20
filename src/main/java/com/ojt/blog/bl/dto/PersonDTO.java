@@ -17,16 +17,18 @@ public class PersonDTO {
     Long id;
     String name;
     Date createdAt;
+    String password;
 
     public PersonDTO(PersonForm personForm){
         setId(personForm.getId());
         setName(personForm.getName());
         setCreatedAt(personForm.getCreatedAt());
+        setPassword(personForm.getPassword());
     }
     public PersonDTO(Person person){
         setId(person.getId());
         setName(person.getName());
         setCreatedAt(person.getCreatedAt());
-
+        setPassword(person.getPassword());
     }
 }

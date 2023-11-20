@@ -1,11 +1,10 @@
-package com.ojt.blog.bl.service.impl;
+package com.ojt.blog.bl.service.person.impl;
 
 import com.ojt.blog.bl.dto.PersonDTO;
-import com.ojt.blog.bl.service.PersonService;
+import com.ojt.blog.bl.service.person.PersonService;
 import com.ojt.blog.persistence.entity.Person;
 import com.ojt.blog.persistence.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -95,6 +94,11 @@ public class PersonServiceImpl implements PersonService {
             return personRepository.findAll(keyword);
         }
         return personRepository.findAll();
+    }
+
+    @Override
+    public Person getByPersonName(String username) {
+        return personRepository.findByName(username);
     }
 
     @Override

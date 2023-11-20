@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Home Page</title>
+    <link th:href="@{/reset/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-<h1>Home</h1>
-
+<h1>Welcome To User Registration</h1>
 <!--th:action="@{/}"-->
-
-<a th:href="@{/person/create}">   user registration  </a>
+<h5>Please Click the Following Link to Create User</h5>
+<a class="btn btn-primary" th:href="@{/person/create}">   user registration  </a>
 
 
 </body>
